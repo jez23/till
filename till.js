@@ -40,9 +40,9 @@ for (var productIndex = 0; productIndex < products.length; productIndex ++ ) {
   buttonsHTML +=        '</div>'
   buttonsHTML +=        '<div class="panel-body">'
   buttonsHTML +=          '<p>'
-  buttonsHTML +=            '<strong>Price: </strong> £0.99'
+  buttonsHTML +=            '<strong>Price: </strong> £ '+ product.price.toFixed(2) 
   buttonsHTML +=          '</p>'
-  buttonsHTML +=          '<button type="button" class="btn btn-primary" onclick="till.add(\'' + product.name + '\')">Add</button>'
+  buttonsHTML +=          '<button type="button" class="btn btn-primary" onclick="transaction.add(\'' + product.name + '\')">Add</button>'
   buttonsHTML +=        '</div>'
   buttonsHTML +=      '</div>'
   buttonsHTML +=    '</div>'
@@ -70,7 +70,30 @@ if (selectedProduct) {
     }
 
     this.items.push(newItem)
-    console.log(this.items)
+   
+    updateDOM()
+
   }
 }
 
+function updateDOM () {
+  var tillItems = document.getElementById('tillItems')
+  tillItems.innerHTML = ''
+
+  var total = 0.00
+
+  for (var itemIndex = 0; itemIndex < transaction.items.length; itemIndex++) {
+    var currentItem = transaction.items[itemIndex]
+
+    var itemsHTML = '<li class="list-group-item">'
+    itemsHTML += '<span class="badge">' + currentItem.price + '</span>'
+    itemsHTML += currentItem.name
+    itemsHTML += '</li>'
+
+    tillItems.innerHTML += itemsHTML
+    total += currentItem.price
+  }
+
+  document.getElementById('total').innerHTML = total.toFixed(2)
+
+}
