@@ -47,7 +47,30 @@ for (var productIndex = 0; productIndex < products.length; productIndex ++ ) {
   buttonsHTML +=      '</div>'
   buttonsHTML +=    '</div>'
 
-
-
     buttonsContainer.innerHTML += buttonsHTML 
 }
+
+var transaction = {}
+transaction.items = []
+transaction.add = function (productName) {
+    for (productIndex = 0; productIndex < products.length; productIndex++) {
+    var currentProduct = products[productIndex]
+
+    if (currentProduct.name === productName) {
+      var selectedProduct = currentProduct
+      break
+    }
+  }
+
+if (selectedProduct) {
+    var newItem = {
+      id: (Math.random() * 100000),
+      name: selectedProduct.name,
+      price: selectedProduct.price
+    }
+
+    this.items.push(newItem)
+    console.log(this.items)
+  }
+}
+
